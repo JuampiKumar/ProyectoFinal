@@ -19,7 +19,7 @@ namespace TrabajoFinalCoderHouse.Services
 
         public ProductoVendido ObtenerProductoVendidoPorId(int id)
         {
-            return _context.ProductosVendidos.Where(p => p.Id == id).FirstOrDefault();
+            return _context.ProductosVendidos.Where(p => p.idProductoVendido == id).FirstOrDefault();
         }
 
         public bool AgregarProductoVendido(ProductoVendido productoVendido)
@@ -31,7 +31,7 @@ namespace TrabajoFinalCoderHouse.Services
 
         public bool ActualizarProductoVendido(ProductoVendido productoVendido, int id)
         {
-            var productoVendidoEncontrado = _context.ProductosVendidos.Where(p => p.Id == id).FirstOrDefault();
+            var productoVendidoEncontrado = _context.ProductosVendidos.Where(p => p.idProductoVendido == id).FirstOrDefault();
 
             if (productoVendidoEncontrado == null)
             {
@@ -60,7 +60,7 @@ namespace TrabajoFinalCoderHouse.Services
 
         public List<ProductoVendido> ObtenerProductosVendidosPorUsuario(int idUsuario)
         {
-            return _context.ProductosVendidos.Where(pv => pv.IdProducto.HasValue && pv.Producto.IdUsuario == idUsuario).ToList();
+            return _context.ProductosVendidos.Where(pv => pv.idProductoVendido && pv.idVenta == idUsuario).ToList();
         }
     }
 }

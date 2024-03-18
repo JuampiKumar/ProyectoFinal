@@ -6,7 +6,7 @@ using TrabajoFinalCoderHouse.Services;
 namespace TrabajoFinalCoderHouse.Controladores
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/productosvendidos")]
     public class ProductoVendidoControlador
     {
         private readonly ProductoVendidoServices _productoVendidoService;
@@ -23,17 +23,27 @@ namespace TrabajoFinalCoderHouse.Controladores
 
             if (productosVendidos == null)
             {
-                return NotFound();
+                return NotFoundResult();
             }
 
             var productosVendidosDTO = new List<ProductoVendidoDto>();
 
             foreach (var productoVendido in productosVendidos)
             {
-                productosVendidosDTO.Add(ProductoVendidoMAPPER.MappearAProductoVendidoDTO(productoVendido)); // Se utiliza el método MappearAProductoVendidoDTO
+                productosVendidosDTO.Add(ProductoVendidoMAPPER.MappearAProductoVendidoDTO(productoVendido));
             }
 
-            return Ok(productosVendidosDTO);
+            return OkObjectResult(productosVendidosDTO);
+        }
+
+        private ActionResult<List<ProductoVendidoDto>> OkObjectResult(List<ProductoVendidoDto> productosVendidosDTO)
+        {
+            throw new NotImplementedException();
+        }
+
+        private ActionResult<List<ProductoVendidoDto>> NotFoundResult()
+        {
+            throw new NotImplementedException();
         }
     }
 }

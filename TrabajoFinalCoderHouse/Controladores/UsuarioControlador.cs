@@ -31,35 +31,49 @@ namespace TrabajoFinalCoderHouse.Controladores
             var usuario = UsuarioServices.ObtenerUsuarioPorNombreUsuario(nombreUsuario);
             if (usuario == null)
             {
-                return NotFound();
+                return NotFoundResult();
             }
-            return Ok(usuario);
+            return OkObjectResult(usuario);
         }
 
+        private ActionResult<Usuario> NotFoundResult()
+        {
+            throw new NotImplementedException();
+        }
 
         [HttpPut("{id}")]
         public IActionResult ActualizarUsuario(int id, UsuarioDto usuarioDTO)
         {
             if (id != usuarioDTO.Id)
             {
-                return BadRequest();
+                return BadRequestResult();
             }
 
             var usuario = new Usuario
             {
-                Id = usuarioDTO.Id,
+                idUser = usuarioDTO.Id,
                 Nombre = usuarioDTO.Nombre,
-                NombreUsuario = usuarioDTO.NombreUsuario,
+                userName = usuarioDTO.NombreUsuario,
                 Apellido = usuarioDTO.Apellido,
                 Mail = usuarioDTO.Mail
             };
 
-            var usuarioActualizado = UsuarioService.ActualizarUsuario(usuario);
+            var usuarioActualizado = UsuarioServices.ActualizarUsuario(usuario);
             if (usuarioActualizado == null)
             {
-                return NotFound();
+                return NotFoundResult();
             }
-            return Ok(usuarioActualizado);
+            return OkObjectResult(usuarioActualizado);
+        }
+
+        private IActionResult OkObjectResult(bool usuarioActualizado)
+        {
+            throw new NotImplementedException();
+        }
+
+        private IActionResult BadRequestResult()
+        {
+            throw new NotImplementedException();
         }
     }
 }

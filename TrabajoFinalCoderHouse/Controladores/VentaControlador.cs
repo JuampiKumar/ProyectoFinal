@@ -4,11 +4,10 @@ using TrabajoFinalCoderHouse.Modelos;
 using TrabajoFinalCoderHouse.Mappers;
 using TrabajoFinalCoderHouse.ModelosDTO;
 
-
 namespace TrabajoFinalCoderHouse.Controladores
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/ventas")]
     public class VentaControlador
     {
         private readonly VentaServices _ventaService;
@@ -32,9 +31,19 @@ namespace TrabajoFinalCoderHouse.Controladores
             var venta = VentaServices.ObtenerVentaPorId(id);
             if (venta == null)
             {
-                return NotFound();
+                return NotFoundResult();
             }
-            return Ok(venta);
+            return OkObjectResult(venta);
+        }
+
+        private ActionResult<Venta> OkObjectResult(Venta venta)
+        {
+            throw new NotImplementedException();
+        }
+
+        private ActionResult<Venta> NotFoundResult()
+        {
+            throw new NotImplementedException();
         }
 
         [HttpPost]
@@ -42,7 +51,12 @@ namespace TrabajoFinalCoderHouse.Controladores
         {
             var venta = VentaMAPPER.MappearAVentas(ventaDTO);
             VentaServices.AgregarVenta(venta);
-            return CreatedAtAction(nameof(ObtenerVentaPorId), new { id = venta.Id }, venta);
+            return CreatedAtActionResult(nameof(ObtenerVentaPorId), new { id = venta.idVenta }, venta);
+        }
+
+        private IActionResult CreatedAtActionResult(string v, object value, Venta venta)
+        {
+            throw new NotImplementedException();
         }
 
         [HttpPut("{id}")]
@@ -50,19 +64,29 @@ namespace TrabajoFinalCoderHouse.Controladores
         {
             if (id != ventaDTO.Id)
             {
-                return BadRequest();
+                return BadRequestResult();
             }
 
             var venta = VentaMAPPER.MappearAVentas(ventaDTO);
             VentaServices.ActualizarVentaPorId(venta, id);
-            return NoContent();
+            return NoContentResult();
+        }
+
+        private IActionResult NoContentResult()
+        {
+            throw new NotImplementedException();
+        }
+
+        private IActionResult BadRequestResult()
+        {
+            throw new NotImplementedException();
         }
 
         [HttpDelete("{id}")]
         public IActionResult EliminarVenta(int id)
         {
             VentaServices.EliminarVenta(id);
-            return NoContent();
+            return NoContentResult();
         }
     }
 }

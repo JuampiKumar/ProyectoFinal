@@ -2,7 +2,6 @@
 using TrabajoFinalCoderHouse.Services;
 using TrabajoFinalCoderHouse.ModelosDTO;
 
-
 namespace TrabajoFinalCoderHouse.Controladores
 {
     [ApiController]
@@ -20,21 +19,30 @@ namespace TrabajoFinalCoderHouse.Controladores
         [HttpGet]
         public IActionResult Index([FromQuery] string? nombre, [FromQuery] string? edad)
         {
-            return base.Ok(new { menssaje = "Hola desde producto", estado = 200 });
+            return OkObjectResult(new { menssaje = "Hola desde producto", estado = 200 });
         }
 
+        private IActionResult OkObjectResult(object value)
+        {
+            throw new NotImplementedException();
+        }
 
         [HttpPost]
         public IActionResult AgregarUnNuevoProducto([FromBody] ProductoDto producto)
         {
             if (this.productoService.AgregarProducto(producto))
             {
-                return base.Ok(new { mensaje = "PRODUCTO AGREGADO: ", producto });
+                return OkObjectResult(new {mensaje = "PRODUCTO AGREGADO: ", producto });
             }
             else
             {
-                return base.Conflict(new { mensaje = "No se pudo agregar un producto" });
+                return ConflictObjectResult(new { mensaje = "No se pudo agregar un producto" });
             }
+        }
+
+        private IActionResult ConflictObjectResult(object value)
+        {
+            throw new NotImplementedException();
         }
 
         [HttpDelete("{int id}")]
@@ -44,28 +52,33 @@ namespace TrabajoFinalCoderHouse.Controladores
             {
                 if (this.productoService.BorrarProductoPorId(id))
                 {
-                    return base.Ok(new { mensaje = "Producto borrado", status = 200 });
+                    return OkObjectResult(new { mensaje = "Producto borrado", status = 200 });
                 }
                 else
                 {
-                    return base.Conflict(new { mensaje = "No se pudo borrar el producto" });
+                    return ConflictObjectResult(new { mensaje = "No se pudo borrar el producto" });
                 }
             }
-            return base.BadRequest(new { status = 400, mensaje = "El id no puede ser engativo" });
+            return BadRequestResult(new { status = 400, mensaje = "El id no puede ser engativo" });
+        }
+
+        private IActionResult BadRequestResult(object value)
+        {
+            throw new NotImplementedException();
         }
 
         [HttpPut(template: "{id}")]
-        public IActionResult ActualizarProductoPorId(int id, ProductoDTO productoDTO)
+        public IActionResult ActualizarProductoPorId(int id, ProductoDto productoDTO)
         {
             if (id > 0)
             {
                 if (this.productoService.ActualizarProductoPorId(id, productoDTO))
                 {
-                    return base.Ok(new { mensaje = "Producto actualizado", status = 200, productoDTO });
+                    return OkObjectResult(new { mensaje = "Producto actualizado", status = 200, productoDTO });
                 }
-                return base.Conflict(new { mensaje = "No se pudo actualizar el producto" });
+                return ConflictObjectResult(new { mensaje = "No se pudo actualizar el producto" });
             }
-            return base.BadRequest(new { status = 400, mensaje = "El id no puede ser negativo" });
+            return BadRequestResult(new { status = 400, mensaje = "El id no puede ser negativo" });
         }
     }
 }

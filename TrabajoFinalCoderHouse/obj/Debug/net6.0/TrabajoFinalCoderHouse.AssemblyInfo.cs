@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TrabajoFinalCoderHouse")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+09c16aac0e5ad71073ea2db5b27687e43be6f1fd")]
 [assembly: System.Reflection.AssemblyProductAttribute("TrabajoFinalCoderHouse")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TrabajoFinalCoderHouse")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -23,17 +23,17 @@ namespace TrabajoFinalCoderHouse.Services
             using (coderhouse context = new coderhouse())
             {
 
-                Producto? productoEncontrado = context.Productos.Where(p => p.Id == id).FirstOrDefault();
+                Producto? productoEncontrado = context.Productos.Where(p => p.idProducto == id).FirstOrDefault();
                 return productoEncontrado;
             }
         }
 
 
-        internal bool AgregarProducto(ProductoDTO dto)
+        internal bool AgregarProducto(ProductoDto dto)
         {
             using (coderhouse context = new coderhouse())
             {
-                Producto p = ProductoMapper.MappearAProducto(dto);
+                Producto p = ProductoMAPPER.MappearAProducto(dto);
 
                 context.Productos.Add(p);
                 context.SaveChanges();
@@ -46,9 +46,9 @@ namespace TrabajoFinalCoderHouse.Services
         {
             using (coderhouse context = new coderhouse())
             {
-                Producto? productoBuscado = context.Productos.Where(p => p.Id == id).FirstOrDefault();
+                Producto? productoBuscado = context.Productos.Where(p => p.IdProducto == id).FirstOrDefault();
                 productoBuscado.Descripcion = producto.Descripcion;
-                productoBuscado.Costo = producto.Costo;
+                productoBuscado.PrecioCosto = producto.PrecioCosto;
                 productoBuscado.PrecioVenta = producto.PrecioVenta;
                 productoBuscado.Stock = producto.Stock;
                 productoBuscado.IdUsuario = producto.IdUsuario;
@@ -81,7 +81,7 @@ namespace TrabajoFinalCoderHouse.Services
         {
             using (coderhouse context = new coderhouse())
             {
-                Producto? producto = context.Productos.Where(p => p.Id == id).FirstOrDefault();
+                Producto? producto = context.Productos.Where(p => p.IdProducto == id).FirstOrDefault();
                 if (producto != null)
                 {
                     context.Remove(producto);
@@ -92,16 +92,16 @@ namespace TrabajoFinalCoderHouse.Services
             }
         }
 
-        public bool ActualizarProductoPorId(int id, ProductoDTO productoDTO)
+        public bool ActualizarProductoPorId(int id, ProductoDto productoDTO)
         {
             using (coderhouse context = new coderhouse())
             {
-                Producto? producto = context.Productos.Where(p => p.Id == id).FirstOrDefault();
+                Producto? producto = context.Productos.Where(p => p.IdProducto == id).FirstOrDefault();
                 if (producto != null)
                 {
                     producto.PrecioVenta = productoDTO.PrecioVenta;
                     producto.Stock = productoDTO.Stock;
-                    producto.Costo = productoDTO.Costo;
+                    producto.PrecioCosto = productoDTO.Costo;
                     producto.Descripcion = productoDTO.Descripcion;
                     producto.IdUsuario = productoDTO.IdUsuario;
 
